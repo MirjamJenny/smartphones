@@ -1,6 +1,7 @@
 rm(list=ls(all=TRUE))  #first delete all laoded variables from the environment
 
 #set working directories, load data, merge training and test data and create variable names
+#exchange the working directories with your own
 
 setwd("/Users/jenny/Dropbox/Work/Coursera/Data Science/Exercises/Getting data/UCI HAR Dataset/train")
 trsubject <- read.table("subject_train.txt")
