@@ -104,9 +104,6 @@ colnames(totalacc_z) <- totalacc_z_names
 smartphonesData <- cbind(subject,activity,X,bodyacc_x,bodyacc_y,bodyacc_z,bodygyro_x,bodygyro_y,bodygyro_z,totalacc_x,totalacc_y,totalacc_z)
 colnames(smartphonesData) <- c("subject","activity",names(X),names(bodyacc_x),names(bodyacc_y),names(bodyacc_z),names(bodygyro_x),names(bodygyro_y),names(bodygyro_z),names(totalacc_x),names(totalacc_y),names(totalacc_z))
 
-#extract only the measurements on the mean and standard deviation for each measurement
-meansSDs <- smartphonesData[,3:8]
-
 #create a second, independent tidy data set with the average of each variable for each activity and each subject
 activs <- split(smartphonesData,smartphonesData$activity)
 smartphonesMeans <- array(NA,dim=c(length(table(smartphonesData$subject)),length(table(smartphonesData$activity)),dim(smartphonesData)[2]-2))
@@ -134,8 +131,13 @@ smartphonesFinal <- cbind(indices[,2],indices[,1],smartphonesFinal)
 
 colnames(smartphonesFinal) <- c("activity","subject",colnames(smartphonesData)[3:dim(smartphonesData)[2]])
 
-#smartphonesFinal is the final data set with the average of each variable for each activity and each subject
+#extract only the measurements on the mean and standard deviation for each measurement
+smartphonesFinals <- cbind(smartphonesFinal[,1:2],smartphonesFinal[,grep("mean",colnames(smartphonesFinal))],smartphonesFinal[,grep("std",colnames(smartphonesFinal))])
+
+#smartphonesFinals is the final data set with the average of each variable for each activity and each subject
 
 setwd("/Users/jenny/Dropbox/Work/Coursera/Data Science/Exercises/Getting data")
-save(smartphonesFinal,file="smartphonesFinal.Rdata")
-save(meansSDs,file="means_SDs.Rdata")
+save(smartphonesFinals,file="smartphonesFinals.Rdata")
+
+write.table(smartphonesFinal,"smartphonesFinal.txt",row.names=FALSE)
+
