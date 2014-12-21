@@ -115,7 +115,7 @@ for (i in 1:length(table(smartphonesData$activity))) {
                 current.dat     <-    cur.dat[cur.dat$subject==j,]
                 print(paste("j=",j))
                 for (k in 3:dim(smartphonesData)[2]) {
-                        smartphonesMeans[j,i,k-2] <- mean(current.dat[,k],na.rm=T)
+                        smartphonesMeans[j,i,k-2] <- mean(current.dat[,k])
                         print(paste("k=",k))
                 }
         }
@@ -126,7 +126,7 @@ for (i in 1:length(table(smartphonesData$activity))) {
         smartphonesFinal <- rbind(smartphonesFinal,smartphonesMeans[,i,])
 }
 
-indices <- expand.grid(1:30,c("WALKING","WALKING_UPSTAIRS","WALKING_DOWNSTAIRS","SITTING","STANDING","LAYING"))
+indices <- expand.grid(1:30,c("LAYING","SITTING","STANDING","WALKING","WALKING_DOWNSTAIRS","WALKING_UPSTAIRS"))
 
 smartphonesFinal <- cbind(indices,smartphonesFinal)
 
