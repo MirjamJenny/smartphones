@@ -126,11 +126,11 @@ for (i in 1:length(table(smartphonesData$activity))) {
         smartphonesFinal <- rbind(smartphonesFinal,smartphonesMeans[,i,])
 }
 
-indices <- expand.grid(1:30,1:6)
+indices <- expand.grid(1:30,c("WALKING","WALKING_UPSTAIRS","WALKING_DOWNSTAIRS","SITTING","STANDING","LAYING"))
 
-smartphonesFinal <- cbind(indices[,2],indices[,1],smartphonesFinal)
+smartphonesFinal <- cbind(indices,smartphonesFinal)
 
-colnames(smartphonesFinal) <- c("activity","subject",colnames(smartphonesData)[3:dim(smartphonesData)[2]])
+colnames(smartphonesFinal) <- c("subject","activity",colnames(smartphonesData)[3:dim(smartphonesData)[2]])
 
 #extract only the measurements on the mean and standard deviation for each measurement
 smartphonesFinals <- cbind(smartphonesFinal[,1:2],smartphonesFinal[,grep("mean",colnames(smartphonesFinal))],smartphonesFinal[,grep("std",colnames(smartphonesFinal))])
@@ -140,5 +140,5 @@ smartphonesFinals <- cbind(smartphonesFinal[,1:2],smartphonesFinal[,grep("mean",
 setwd("/Users/jenny/Dropbox/Work/Coursera/Data Science/Exercises/Getting data")
 save(smartphonesFinals,file="smartphonesFinals.Rdata")
 
-write.table(smartphonesFinal,"smartphonesFinal.txt",row.names=FALSE)
+write.table(smartphonesFinals,"smartphonesFinals.txt",row.names=FALSE)
 
